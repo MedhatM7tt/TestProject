@@ -15,7 +15,6 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void studentLogin(View view) {
-        ((Button) view).setBackgroundResource(R.drawable.clicked_btn);
 
     }
 

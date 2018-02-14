@@ -15,13 +15,11 @@ public class ChooseActivity extends AppCompatActivity {
     }
 
     public void doctorClick(View view) {
-        ((Button) view).setBackgroundResource(R.drawable.clicked_btn);
         Intent i = new Intent(this, DocLoginActivity.class);
         startActivity(i);
     }
 
     public void studentClick(View view) {
-        ((Button) view).setBackgroundResource(R.drawable.clicked_btn);
         Intent i = new Intent(this, StudentLoginActivity.class);
         startActivity(i);
     }

@@ -142,7 +142,7 @@
                 android:id="@+id/SubmitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/my_button_bg"
+                android:background="@drawable/clicked_btn"
                 android:text="Submit"
                 />
 

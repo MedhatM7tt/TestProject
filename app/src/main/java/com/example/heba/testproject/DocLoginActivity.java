@@ -14,6 +14,5 @@ public class DocLoginActivity extends AppCompatActivity {
     }
 
     public void doctorLogin(View view) {
-        ((Button) view).setBackgroundResource(R.drawable.clicked_btn);
     }
 }

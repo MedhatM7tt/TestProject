@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@drawable/my_button_bg"
+            android:background="@drawable/clicked_btn"
             android:drawSelectorOnTop="true"
             android:onClick="doctorLogin"
             android:text="Login" />
