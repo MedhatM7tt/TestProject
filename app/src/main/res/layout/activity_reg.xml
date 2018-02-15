@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -49,24 +49,23 @@
                 android:inputType="textEmailAddress"
                 />
 
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Enter the 14 numbers of ID without S !\nand the Password matched the Confirm to active the Submit button !\nPassword length can't be less than 8 characters !"
+                />
+            <Button
+                android:layout_marginTop="16dp"
+                android:id="@+id/SubmitButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/clicked_btn"
+                android:text="Submit"
+                android:enabled="false"
+                />
 
         </LinearLayout>
     </ScrollView>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/containerScroll"
-        android:hint="Enter the 14 numbers of ID without S !\nand the Password matched the Confirm to active the Submit button !\nPassword length can't be less than 8 characters !"
-        />
-    <Button
-        android:id="@+id/SubmitButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/clicked_btn"
-        android:text="Submit"
-        android:layout_alignParentBottom="true"
-        android:enabled="false"
-        />
 
-</RelativeLayout>
+</LinearLayout>
