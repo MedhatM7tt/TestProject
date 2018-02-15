@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     super.run();
                     while (mProgressStatus < 100) {
-                        sleep(50); //Delay of .5 second
+                        sleep(30); //Delay of .5 second
                         mProgressStatus++;
                         mHandler.post(new Runnable() {
                             @Override

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:padding="15dp"
+    android:padding="16dp"
     tools:context=".DocLoginActivity">
 
     <LinearLayout
@@ -17,18 +17,18 @@
         >
 
         <EditText
-            android:id="@+id/doctorName"
+            android:id="@+id/doctorAcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter the Name"
-            android:inputType="textPersonName" />
+            android:layout_marginBottom="16dp"
+            android:hint="Enter Email"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/doctorPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginBottom="16dp"
             android:hint="Enter Password"
             android:inputType="textPassword" />
 
@@ -36,10 +36,11 @@
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/clicked_btn"
             android:drawSelectorOnTop="true"
             android:onClick="doctorLogin"
-            android:text="Login" />
+            android:text="Login"
+            android:enabled="false"/>
     </LinearLayout>
 </RelativeLayout>
