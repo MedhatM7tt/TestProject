@@ -37,10 +37,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/clicked_btn"
             android:drawSelectorOnTop="true"
             android:onClick="doctorLogin"
             android:text="Login"
             android:enabled="false"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Please remember the password at least 8 characters"/>
     </LinearLayout>
 </RelativeLayout>
