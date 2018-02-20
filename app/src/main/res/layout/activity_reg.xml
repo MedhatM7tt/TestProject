@@ -63,7 +63,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/clicked_btn"
                 android:text="Submit"
-                android:enabled="false"
                 />
 
         </LinearLayout>
