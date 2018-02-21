@@ -201,7 +201,7 @@ public class RegActivity extends AppCompatActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (code.equals("Done")) {
+                if (code.equals("Done")||code.equals("AlreadyCreated")) {
                     finish();
                 } else if (code.equals("Fail")) {
                     mPasswordConfirmE.setText("");
