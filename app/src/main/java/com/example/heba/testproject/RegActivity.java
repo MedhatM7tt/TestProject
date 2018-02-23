@@ -32,7 +32,7 @@ public class RegActivity extends AppCompatActivity {
     EditText mPasswordConfirmE, mPasswordE, mIDE, mEmailE;
     Button regBtn;
     AlertDialog.Builder builder;
-    String regUrl = "http://192.168.1.100/Project/StudentReg.php";
+    String regUrl = "http://192.168.1.102/Project/StudentReg.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

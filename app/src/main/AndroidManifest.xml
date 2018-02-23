@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.heba.testproject">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,28 +11,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-            android:label="Project"
+        <activity
+            android:name=".MainActivity"
             android:configChanges="keyboard|orientation|screenSize"
-            >
+            android:label="Project">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChooseActivity"
-            android:label="Choosing"
-            android:configChanges="keyboard|orientation|screenSize" />
-        <activity android:name=".StudentLoginActivity"
-            android:label="Student"
-            android:configChanges="keyboard|orientation|screenSize" />
-        <activity android:name=".DocLoginActivity"
-            android:label="Doctor"
-            android:configChanges="keyboard|orientation|screenSize"/>
-        <activity android:name=".RegActivity"
-            android:label="Reg"
-            android:configChanges="keyboard|orientation|screenSize"></activity>
+        <activity
+            android:name=".ChooseActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="Choosing" />
+        <activity
+            android:name=".StudentLoginActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="Student" />
+        <activity
+            android:name=".DocLoginActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="Doctor" />
+        <activity
+            android:name=".RegActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="Reg" />
+        <activity android:name=".SubjectsActivity"></activity>
     </application>
 
 </manifest>
