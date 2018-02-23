@@ -1,5 +1,6 @@
 package com.example.heba.testproject;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -28,7 +29,8 @@ public class StudentLoginActivity extends AppCompatActivity {
     private String mStudentAcc,mStudentPass;
     private EditText mStudentAccE,mStudentPassE;
     private Button mLoginBtn;
-    AlertDialog.Builder builder;
+    private ProgressDialog progressDialog;
+    private AlertDialog.Builder builder;
     String studentLoginUrl = "http://mhtt.000webhostapp.com/Project/StudentLogin.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class StudentLoginActivity extends AppCompatActivity {
         mStudentPassE=(EditText) findViewById(R.id.studentPass);
         mLoginBtn = (Button) findViewById(R.id.studentLogin);
         mStudentAcc=mStudentPass="" ;
-
+        progressDialog  = new ProgressDialog(this);
         mStudentAccE.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -105,6 +107,8 @@ public class StudentLoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mStudentAcc=mStudentAccE.getText().toString();
                 mStudentPass=mStudentPassE.getText().toString();
+                progressDialog.setMessage("Signing in...");
+                progressDialog.show();
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, studentLoginUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -138,6 +142,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void displayAlert(String code , String message){
+        progressDialog.dismiss();
         if(code.equals("Success")){
             startActivity(new Intent(StudentLoginActivity.this,SubjectsActivity.class));
             finish();
@@ -151,6 +156,8 @@ public class StudentLoginActivity extends AppCompatActivity {
                     mStudentPassE.setText("");
                 }
             });
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
         }
         else{
             builder.setTitle("Login Error !");
@@ -162,9 +169,9 @@ public class StudentLoginActivity extends AppCompatActivity {
                     mStudentPassE.setText("");
                 }
             });
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
         }
-        AlertDialog alertDialog=builder.create();
-        alertDialog.show();
     }
 
     public void reg(View view) {

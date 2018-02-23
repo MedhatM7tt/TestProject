@@ -1,5 +1,6 @@
 package com.example.heba.testproject;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -28,12 +29,12 @@ import java.util.Map;
 
 public class RegActivity extends AppCompatActivity {
 
-    String mPasswordConfirm, mPassword, mID, mEmail;
-    EditText mPasswordConfirmE, mPasswordE, mIDE, mEmailE;
-    Button regBtn;
-    AlertDialog.Builder builder;
-    String regUrl = "http:///mhtt.000webhostapp.com/Project/StudentReg.php";
-
+    private String mPasswordConfirm, mPassword, mID, mEmail;
+    private EditText mPasswordConfirmE, mPasswordE, mIDE, mEmailE;
+    private Button regBtn;
+    private AlertDialog.Builder builder;
+    private ProgressDialog progressDialog;
+    String regUrl = "http://mhtt.000webhostapp.com/Project/StudentReg.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +149,7 @@ public class RegActivity extends AppCompatActivity {
                 mID = mIDE.getText().toString();
             }
         });
+        progressDialog  = new ProgressDialog(this);
 
         builder = new AlertDialog.Builder(RegActivity.this);
         //**************************************************//
@@ -159,6 +161,8 @@ public class RegActivity extends AppCompatActivity {
                 mPassword = mPasswordE.getText().toString();
                 mPasswordConfirm = mPasswordConfirmE.getText().toString();
                 mID = mIDE.getText().toString();
+                progressDialog.setMessage("Signing up...");
+                progressDialog.show();
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, regUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -198,6 +202,7 @@ public class RegActivity extends AppCompatActivity {
     }
 
     private void displayAlert(final String code) {
+        progressDialog.dismiss();
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
