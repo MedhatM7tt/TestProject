@@ -29,7 +29,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private EditText mStudentAccE,mStudentPassE;
     private Button mLoginBtn;
     AlertDialog.Builder builder;
-    String studentLoginUrl = "http://192.168.1.102/Project/StudentLogin.php";
+    String studentLoginUrl = "http://mhtt.000webhostapp.com/Project/StudentLogin.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +64,8 @@ public class StudentLoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                mStudentAcc=mStudentAccE.getText().toString();
+                mStudentPass=mStudentPassE.getText().toString();
 
             }
         });
