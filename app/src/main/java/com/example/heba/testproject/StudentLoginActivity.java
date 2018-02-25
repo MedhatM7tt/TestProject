@@ -144,7 +144,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     public void displayAlert(String code , String message){
         progressDialog.dismiss();
         if(code.equals("Success")){
-            startActivity(new Intent(StudentLoginActivity.this,SubjectsActivity.class));
+            startActivity(new Intent(StudentLoginActivity.this,Subject_StudentActivity.class));
             finish();
         }
         else if(message.equals("Wrong Password!")){
@@ -175,6 +175,6 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void reg(View view) {
-        startActivity(new Intent(this, RegActivity.class));
+        startActivity(new Intent(this, RegActivity.class).putExtra("Acc",mStudentAcc));
     }
 }

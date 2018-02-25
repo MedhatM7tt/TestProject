@@ -1,5 +1,9 @@
 package com.example.heba.testproject;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,11 +12,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class DocLoginActivity extends AppCompatActivity {
 
     private String mDocAcc,mDocPass;
     private EditText mDocAccE,mDocPassE;
     private Button mLoginBtn;
+    private AlertDialog.Builder builder;
+    private ProgressDialog progressDialog;
+    String docLoginUrl="http://mhtt.000webhostapp.com/Project/DoctorLogin.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +97,84 @@ public class DocLoginActivity extends AppCompatActivity {
 
             }
         });
+
+
+        //----------------------------------------------------------------------//
+
+        builder = new AlertDialog.Builder(DocLoginActivity.this);
+        progressDialog=new ProgressDialog(this);
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDocAcc=mDocAccE.getText().toString();
+                mDocPass=mDocPassE.getText().toString();
+                progressDialog.setMessage("Signing in...");
+                progressDialog.show();
+                StringRequest stringRequest=new StringRequest(Request.Method.POST, docLoginUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray jsonArray=new JSONArray(response);
+                            JSONObject jsonObject=jsonArray.getJSONObject(0);
+                            displayAlert(jsonObject.getString("code"),jsonObject.getString("message"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        displayAlert("Fail","Connection Error !");
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String , String> params=new HashMap<String, String>();
+                        params.put("Acc",mDocAcc);
+                        params.put("Password",mDocPass);
+                        return params;
+                    }
+                };
+                MySingleton.getmInstance(DocLoginActivity.this).addToRequestQueue(stringRequest);
+            }
+        });
     }
 
-    public void doctorLogin(View view) {
+    public void displayAlert(String code , String message){
+        progressDialog.dismiss();
+        if(code.equals("Success")){
+            startActivity(new Intent(DocLoginActivity.this,Subject_DoctorActivity.class));
+            finish();
+        }
+        else if(message.equals("Wrong Password!")){
+            builder.setTitle("Login Error !");
+            builder.setMessage(message);
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mDocPassE.setText("");
+                }
+            });
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
+        }
+        else{
+            builder.setTitle("Login Error !");
+            builder.setMessage(message);
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    mDocAccE.setText("");
+                    mDocPassE.setText("");
+                }
+            });
+            AlertDialog alertDialog=builder.create();
+            alertDialog.show();
+        }
+    }
+
+    public void regDoc(View view) {
+        startActivity(new Intent(this, DocRegActivity.class).putExtra("Acc",mDocAcc));
     }
 }

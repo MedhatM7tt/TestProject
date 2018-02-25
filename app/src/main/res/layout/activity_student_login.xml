@@ -40,7 +40,6 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/clicked_btn"
             android:drawSelectorOnTop="true"
-            android:onClick="studentLogin"
             android:layout_marginBottom="16dp"
             android:text="Login"
             android:enabled="false"

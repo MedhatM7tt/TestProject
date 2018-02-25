@@ -37,7 +37,14 @@
             android:name=".RegActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="Reg" />
-        <activity android:name=".SubjectsActivity"></activity>
+        <activity android:name=".DocRegActivity"
+            android:configChanges="keyboard|orientation|screenSize"/>
+        <activity android:name=".Subject_DoctorActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="Subjects"/>
+        <activity android:name=".Subject_StudentActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="Subjects"></activity>
     </application>
 
 </manifest>
