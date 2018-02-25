@@ -31,7 +31,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private Button mLoginBtn;
     private ProgressDialog progressDialog;
     private AlertDialog.Builder builder;
-    String studentLoginUrl = "http://mhtt.000webhostapp.com/Project/StudentLogin.php";
+    String studentLoginUrl = "http://192.168.1.102/Project/StudentLogin.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,7 +144,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     public void displayAlert(String code , String message){
         progressDialog.dismiss();
         if(code.equals("Success")){
-            startActivity(new Intent(StudentLoginActivity.this,Subject_StudentActivity.class));
+            startActivity(new Intent(StudentLoginActivity.this,Subject_StudentActivity.class).putExtra("Acc",mStudentAcc));
             finish();
         }
         else if(message.equals("Wrong Password!")){
@@ -175,6 +175,6 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void reg(View view) {
-        startActivity(new Intent(this, RegActivity.class).putExtra("Acc",mStudentAcc));
+        startActivity(new Intent(this, RegActivity.class));
     }
 }
