@@ -1,41 +1,39 @@
 package com.example.heba.testproject;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
 public class Subject_StudentActivity extends AppCompatActivity {
     private String Acc;
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject__student);
-        ArrayList<String> subjects=new ArrayList<>();
-        Bundle extras=getIntent().getExtras();
-        if(extras!=null){
-            Acc=extras.getString("Acc");
-            Log.v("Acc1",Acc);
+        if(!SharedPrefManager.getmInstance(this).isLogged()){
+            finish();
         }
-        BackgroundTask backgroundTask=new BackgroundTask(this,Acc);
-        subjects=backgroundTask.getSubjectsList();
+
+        ArrayList<String> subjects=new ArrayList<>();
+        progressDialog=new ProgressDialog(this);
+        progressDialog.setMessage("Please Wait until fetching your data...");
+        progressDialog.show();
+        Acc=SharedPrefManager.getmInstance(this).getUserAcc();
+        Set<String> subjectSet=SharedPrefManager.getmInstance(this).getSubjectSet();
+        if(subjectSet.isEmpty())
+            Toast.makeText(this,"Please Check your data in the department... !",Toast.LENGTH_LONG).show();
+        for(String s:subjectSet){
+            subjects.add(s);
+        }
+        progressDialog.dismiss();
         final ListView listView= (ListView)findViewById(R.id.list);
-        RegistrationAdapter registrationAdapter=new RegistrationAdapter(this,subjects);
-        listView.setAdapter(registrationAdapter);
+        SubjectsAdapter subjectsAdapter =new SubjectsAdapter(this,subjects);
+        listView.setAdapter(subjectsAdapter);
     }
 }

@@ -2,7 +2,6 @@ package com.example.heba.testproject;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,14 +25,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegActivity extends AppCompatActivity {
+public class StrudentRegActivity extends AppCompatActivity {
 
     private String mPasswordConfirm, mPassword, mID, mEmail;
     private EditText mPasswordConfirmE, mPasswordE, mIDE, mEmailE;
     private Button regBtn;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
-    String regUrl = "http://mhtt.000webhostapp.com/Project/StudentReg.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +148,7 @@ public class RegActivity extends AppCompatActivity {
         });
         progressDialog  = new ProgressDialog(this);
 
-        builder = new AlertDialog.Builder(RegActivity.this);
+        builder = new AlertDialog.Builder(StrudentRegActivity.this);
         //**************************************************//
 
         regBtn.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +160,7 @@ public class RegActivity extends AppCompatActivity {
                 mID = mIDE.getText().toString();
                 progressDialog.setMessage("Signing up...");
                 progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, regUrl, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.STUDENT_REG_URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
@@ -196,7 +193,7 @@ public class RegActivity extends AppCompatActivity {
                         return params;
                     }
                 };
-                MySingleton.getmInstance(RegActivity.this).addToRequestQueue(stringRequest);
+                MySingleton.getmInstance(StrudentRegActivity.this).addToRequestQueue(stringRequest);
             }
         });
     }

@@ -32,7 +32,7 @@ public class DocLoginActivity extends AppCompatActivity {
     private Button mLoginBtn;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
-    String docLoginUrl="http://mhtt.000webhostapp.com/Project/DoctorLogin.php";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +110,7 @@ public class DocLoginActivity extends AppCompatActivity {
                 mDocPass=mDocPassE.getText().toString();
                 progressDialog.setMessage("Signing in...");
                 progressDialog.show();
-                StringRequest stringRequest=new StringRequest(Request.Method.POST, docLoginUrl, new Response.Listener<String>() {
+                StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.DOCTOR_LOGIN_URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {

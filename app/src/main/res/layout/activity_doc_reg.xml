@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:id="@+id/containerScroll"
         android:layout_height="wrap_content"
-        tools:context="com.example.heba.testproject.RegActivity">
+        tools:context="com.example.heba.testproject.StrudentRegActivity">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -15,8 +15,8 @@ import java.util.List;
  * Created by Heba on 2/25/2018.
  */
 
-public class RegistrationAdapter extends ArrayAdapter<String> {
-    public RegistrationAdapter(@NonNull Context context, @NonNull List<String> objects) {
+public class SubjectsAdapter extends ArrayAdapter<String> {
+    public SubjectsAdapter(@NonNull Context context, @NonNull List<String> objects) {
         super(context, 0, objects);
     }
 
@@ -29,7 +29,6 @@ public class RegistrationAdapter extends ArrayAdapter<String> {
                     R.layout.mylist, parent, false);
         }
         final String currentSubject = getItem(position);
-
         TextView subjectView=(TextView) listItemView.findViewById(R.id.subjectCode);
         subjectView.setText(currentSubject);
         return listItemView;

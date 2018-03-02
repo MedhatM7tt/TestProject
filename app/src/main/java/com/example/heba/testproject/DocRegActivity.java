@@ -31,7 +31,6 @@ public class DocRegActivity extends AppCompatActivity {
     private Button regBtn;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
-    String regUrl = "http://mhtt.000webhostapp.com/Project/DoctorReg.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +131,7 @@ public class DocRegActivity extends AppCompatActivity {
                 mPasswordConfirm = mPasswordConfirmE.getText().toString();
                 progressDialog.setMessage("Signing up...");
                 progressDialog.show();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, regUrl, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.DOCTOR_REG_URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {

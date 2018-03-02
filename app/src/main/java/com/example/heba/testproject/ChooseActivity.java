@@ -12,6 +12,11 @@ public class ChooseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
+        if(SharedPrefManager.getmInstance(this).isLogged()){
+            startActivity(new Intent(this,Subject_StudentActivity.class));
+            finish();
+            return;
+        }
     }
 
     public void doctorClick(View view) {
