@@ -13,7 +13,7 @@ public class ChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose);
         if(SharedPrefManager.getmInstance(this).isLogged()){
-            startActivity(new Intent(this,Subject_StudentActivity.class));
+            startActivity(new Intent(this,StudentLoginActivity.class));
             finish();
             return;
         }

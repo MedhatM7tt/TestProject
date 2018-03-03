@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,11 +48,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_login);
-        if(SharedPrefManager.getmInstance(this).isLogged()){
-            finish();
-            startActivity(new Intent(this,Subject_StudentActivity.class));
-            return;
-        }
+
         mStudentAccE=(EditText) findViewById(R.id.studentAcc);
         mStudentPassE=(EditText) findViewById(R.id.studentPass);
         mLoginBtn = (Button) findViewById(R.id.studentLogin);
@@ -131,8 +129,14 @@ public class StudentLoginActivity extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mStudentAcc=mStudentAccE.getText().toString();
-                mStudentPass=mStudentPassE.getText().toString();
+                if(!SharedPrefManager.getmInstance(StudentLoginActivity.this).isLogged()){
+                    mStudentAcc=mStudentAccE.getText().toString();
+                    mStudentPass=mStudentPassE.getText().toString();
+                }
+                else{
+                    mStudentAcc=SharedPrefManager.getmInstance(StudentLoginActivity.this).getUserAcc().toString();
+                    mStudentPass=SharedPrefManager.getmInstance(StudentLoginActivity.this).getUserPass().toString();
+                }
                 progressDialog.setMessage("Signing in...");
                 progressDialog.show();
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.STUDENT_LOGIN_URL, new Response.Listener<String>() {
@@ -143,7 +147,12 @@ public class StudentLoginActivity extends AppCompatActivity {
                             JSONObject jsonObject=jsonArray.getJSONObject(0);
                             for(int count=1;count<jsonArray.length();count++){
                                 JSONObject jsonObject2 = jsonArray.getJSONObject(count);
-                                set.add(jsonObject2.getString("subjectCode").toString());
+                                Iterator<String> iterator = jsonObject2.keys();
+                                String currentKey=iterator.next();
+                                if(currentKey.equals("subjectCode"))
+                                {
+                                    set.add(jsonObject2.getString("subjectCode").toString());
+                                }
                             }
                             displayAlert(jsonObject.getString("code"),jsonObject.getString("message"));
                         } catch (JSONException e) {
@@ -169,12 +178,17 @@ public class StudentLoginActivity extends AppCompatActivity {
             }
         });
 
+        if(SharedPrefManager.getmInstance(this).isLogged()){
+            mLoginBtn.callOnClick();
+            return;
+        }
+
     }
 
     public void displayAlert(String code , String message){
         progressDialog.dismiss();
         if(code.equals("Success")){
-            SharedPrefManager.getmInstance(getApplicationContext()).userLogin(mStudentAcc,set);
+            SharedPrefManager.getmInstance(this).userLogin(mStudentAcc,set,mStudentPass);
             startActivity(new Intent(StudentLoginActivity.this,Subject_StudentActivity.class));
             finish();
         }

@@ -17,6 +17,7 @@ public class SharedPrefManager {
     private static SharedPrefManager mInstance ;
     private static final String SHARED_PREF_NAME = "mySharedPref";
     private static final String USER_ACC_KEY = "userAcc";
+    private static final String USER_PASS="userPass";
     private static final String USER_SUBJECTS = "userSubjects";
     private static Context mCtx;
 
@@ -30,11 +31,12 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLogin(String Acc, Set<String> subjectList){
+    public boolean userLogin(String Acc, Set<String> subjectList,String pass){
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_ACC_KEY,Acc);
         editor.putStringSet(USER_SUBJECTS,subjectList);
+        editor.putString(USER_PASS,pass);
         editor.apply();
         return true;
     }
@@ -55,6 +57,10 @@ public class SharedPrefManager {
     public String getUserAcc(){
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getString(USER_ACC_KEY,null);
+    }
+    public String getUserPass(){
+        SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        return sharedPreferences.getString(USER_PASS,null);
     }
     public Set<String> getSubjectSet(){
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
