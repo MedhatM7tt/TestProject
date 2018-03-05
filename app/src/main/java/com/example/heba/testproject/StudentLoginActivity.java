@@ -152,6 +152,10 @@ public class StudentLoginActivity extends AppCompatActivity {
                                 if(currentKey.equals("subjectCode"))
                                 {
                                     set.add(jsonObject2.getString("subjectCode").toString());
+                                    set.add(jsonObject2.getString("DoneEval1").toString());
+                                    set.add(jsonObject2.getString("DoneEval2").toString());
+                                    set.add(jsonObject2.getString("ActiveEval1").toString());
+                                    set.add(jsonObject2.getString("ActiveEval2").toString());
                                 }
                             }
                             displayAlert(jsonObject.getString("code"),jsonObject.getString("message"));

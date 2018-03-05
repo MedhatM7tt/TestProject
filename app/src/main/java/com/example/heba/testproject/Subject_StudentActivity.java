@@ -21,7 +21,7 @@ public class Subject_StudentActivity extends AppCompatActivity {
             finish();
         }
 
-        ArrayList<String> subjects = new ArrayList<>();
+        ArrayList<SubjectData> subjects = new ArrayList<>();
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please Wait until fetching your data...");
         progressDialog.show();
@@ -31,11 +31,11 @@ public class Subject_StudentActivity extends AppCompatActivity {
             Toast.makeText(this, "Please Check your data in the department... !", Toast.LENGTH_LONG).show();
         else {
             for (String s : subjectSet) {
-                subjects.add(s);
+
             }
             final ListView listView = (ListView) findViewById(R.id.list);
-            SubjectsAdapter subjectsAdapter = new SubjectsAdapter(this, subjects);
-            listView.setAdapter(subjectsAdapter);
+            //SubjectsAdapter subjectsAdapter = new SubjectsAdapter(this, subjects);
+            //listView.setAdapter(subjectsAdapter);
         }
         progressDialog.dismiss();
     }

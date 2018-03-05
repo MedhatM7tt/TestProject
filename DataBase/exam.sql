@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2018 at 11:37 PM
+-- Generation Time: Mar 05, 2018 at 02:44 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `exam`
 --
-CREATE DATABASE IF NOT EXISTS `exam` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `exam` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `exam`;
 
 -- --------------------------------------------------------
@@ -33,15 +33,26 @@ CREATE TABLE `course` (
   `Code` varchar(5) NOT NULL,
   `Name` varchar(45) NOT NULL,
   `Describtion` varchar(45) NOT NULL,
-  `Exam time` datetime NOT NULL,
+  `Exam time` time NOT NULL,
   `No of hours` double NOT NULL,
   `Semester` varchar(10) NOT NULL,
   `Level` varchar(45) NOT NULL,
   `Midterm` int(11) NOT NULL,
   `Oral` int(11) NOT NULL,
   `Final` int(11) NOT NULL,
-  `Doctor_ID` int(11) NOT NULL
+  `Doctor_ID` int(11) NOT NULL,
+  `is_active1` tinyint(1) NOT NULL,
+  `is_active2` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`Code`, `Name`, `Describtion`, `Exam time`, `No of hours`, `Semester`, `Level`, `Midterm`, `Oral`, `Final`, `Doctor_ID`, `is_active1`, `is_active2`) VALUES
+('201CS', 'Programming Language', 'C++ /OOP', '02:00:00', 20, '2', '2', 20, 5, 100, 2, 1, 0),
+('305CS', 'Database', 'Database Essentials with MySQL', '03:00:00', 20, '2', '3', 20, 5, 75, 1, 0, 0),
+('401CS', 'Programming Language', 'Java Programming', '03:00:00', 20, '1', '4', 20, 5, 75, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -88,8 +99,18 @@ CREATE TABLE `doctor` (
   `Phone` varchar(13) DEFAULT NULL,
   `Role` varchar(45) NOT NULL,
   `Department_ID` int(11) NOT NULL,
-  `Password` varchar(45) NOT NULL
+  `Password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `doctor`
+--
+
+INSERT INTO `doctor` (`ID`, `Name`, `Email`, `Phone`, `Role`, `Department_ID`, `Password`) VALUES
+(1, 'Wael Zakria', 'wael.zakaria@sci.asu.edu.eg', '01005648916', 'Doctor', 1, ' '),
+(2, 'Mohamed Hashem', 'm_hashim123@yahoo.com', NULL, 'Doctor', 1, ' '),
+(3, 'Ashraf Mostafa', 'ashrafbhery09@gmail.com', '01095110149', 'Doctor', 1, ' '),
+(4, 'Ahmed Abdelfattah', 'ahabdelfattah@sci.asu.edu.eg', '01018866971', 'Doctor', 1, ' ');
 
 -- --------------------------------------------------------
 
@@ -116,6 +137,16 @@ CREATE TABLE `e_question` (
   `description` varchar(200) DEFAULT NULL,
   `type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `e_question`
+--
+
+INSERT INTO `e_question` (`ID`, `description`, `type`) VALUES
+(1, 'تم توضيح أهداف المقرر فى نهاية الفصل الدراسى', 'before'),
+(2, 'تحققت أهداف المقرر فى نهاية الفصل الدراسى', 'before'),
+(3, 'استعين بالمحاضرة كمصدر اساسى فى الاستذكار', 'before'),
+(4, 'المحاضرات و التدريبات العلمية ترتبط بأهداف المقرر', 'before');
 
 -- --------------------------------------------------------
 
@@ -149,7 +180,33 @@ CREATE TABLE `program` (
 --
 
 INSERT INTO `program` (`Id`, `Name`, `No. Of Hours`, `Department_ID`) VALUES
-(1, 'Statistics and Computer', 20, 1);
+(1, 'Statistics and Computer', 20, 1),
+(2, 'Pure Math and Computer Science', 20, 1),
+(3, 'Statistics and Pure Math', 20, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `program_has_course`
+--
+
+DROP TABLE IF EXISTS `program_has_course`;
+CREATE TABLE `program_has_course` (
+  `program_Id` int(11) NOT NULL,
+  `course_Code` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `program_has_course`
+--
+
+INSERT INTO `program_has_course` (`program_Id`, `course_Code`) VALUES
+(1, '201CS'),
+(1, '305CS'),
+(1, '401CS'),
+(2, '201CS'),
+(2, '305CS'),
+(2, '401CS');
 
 -- --------------------------------------------------------
 
@@ -250,6 +307,20 @@ CREATE TABLE `registeration` (
   `Student_ID` varchar(14) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `registeration`
+--
+
+INSERT INTO `registeration` (`ID`, `Oral`, `Grade`, `Quiz1`, `Quiz2`, `IS_Evaluate1`, `IS_Evaluate2`, `Attendence_Percentage`, `Course_Code`, `Student_ID`) VALUES
+(1, 5, 85, NULL, NULL, 0, 1, 68, '201CS', '20140918224532'),
+(2, 5, 95, NULL, NULL, 0, 0, 0, '305CS', '20140918224532'),
+(3, 4, 70, NULL, NULL, 0, 0, 65, '305CS', '20141128151759'),
+(4, 5, 75, NULL, NULL, 0, 0, 76, '401CS', '20141128151759'),
+(5, 5, 80, NULL, NULL, 0, 0, 80, '305CS', '20141128153448'),
+(6, 3, 60, NULL, NULL, 0, 0, 75, '401CS', '20141128153448'),
+(7, 4, 75, NULL, NULL, 0, 0, 60, '305CS', '20141128223836'),
+(8, 4, 87, NULL, NULL, 0, 0, 90, '401CS', '20141128223836');
+
 -- --------------------------------------------------------
 
 --
@@ -274,7 +345,10 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`ID`, `StartDate`, `Name`, `Level`, `GPA`, `AverageMaxHours`, `Program_Id`, `Email`, `Password`) VALUES
-('20140918224532', '2012-09-15', 'Medhat Mohamed Hassan Gad', 4, 3, 19, 1, 'medhat.mmh5@gmail.com', '$2y$10$9SCciExenWD8tbH/mn4x3.7cffJpK29MT3C.h7blvApjKesyfliaK');
+('20140918224532', '2012-09-15', 'Medhat Mohamed Hassan Gad', 4, 3, 19, 1, 'medhat.mmh5@gmail.com', '$2y$10$GnzRhV6vMeBVh1G73/VGtuQUP1azNUBKE3J8iy35RWTf9oRgqSHLG'),
+('20141128151759', '2014-09-20', 'Heba Emad Ali Emam Sallam', 4, 3.5, 19, 1, ' ', ' '),
+('20141128153448', '2014-09-20', 'Omnia Ahmed Fouad Osman', 4, 3.5, 19, 1, 'omniafouad52@gmail.com', '$2y$10$Isbx3rNvELzqKawRhgpbxeqfI5TiNH6dEUWWeKKsUo8.vVTVsE0qq'),
+('20141128223836', '2014-09-20', 'Asmaa Dawod Soliman Dahb', 4, 3.5, 19, 1, ' ', ' ');
 
 --
 -- Indexes for dumped tables
@@ -337,6 +411,14 @@ ALTER TABLE `program`
   ADD KEY `fk_Program_Department1_idx` (`Department_ID`);
 
 --
+-- Indexes for table `program_has_course`
+--
+ALTER TABLE `program_has_course`
+  ADD PRIMARY KEY (`program_Id`,`course_Code`),
+  ADD KEY `fk_program_has_course_course1_idx` (`course_Code`),
+  ADD KEY `fk_program_has_course_program1_idx` (`program_Id`);
+
+--
 -- Indexes for table `questions`
 --
 ALTER TABLE `questions`
@@ -357,14 +439,6 @@ ALTER TABLE `quiz`
 ALTER TABLE `quiz_generator`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_quiz_generator_Doctor1_idx` (`Doctor_ID`);
-
---
--- Indexes for table `quiz_has_questions`
---
-ALTER TABLE `quiz_has_questions`
-  ADD PRIMARY KEY (`quiz_id`,`questions_id`),
-  ADD KEY `fk_quiz_has_questions_questions1_idx` (`questions_id`),
-  ADD KEY `fk_quiz_has_questions_quiz1_idx` (`quiz_id`);
 
 --
 -- Indexes for table `registeration`
@@ -393,13 +467,6 @@ ALTER TABLE `course`
   ADD CONSTRAINT `fk_Course_Doctor1` FOREIGN KEY (`Doctor_ID`) REFERENCES `doctor` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `course_has_course`
---
-ALTER TABLE `course_has_course`
-  ADD CONSTRAINT `fk_Course_has_Course_Course1` FOREIGN KEY (`Course_aquired`) REFERENCES `course` (`Code`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Course_has_Course_Course2` FOREIGN KEY (`Course_required`) REFERENCES `course` (`Code`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Constraints for table `doctor`
 --
 ALTER TABLE `doctor`
@@ -410,13 +477,6 @@ ALTER TABLE `doctor`
 --
 ALTER TABLE `evaluation`
   ADD CONSTRAINT `fk_Evaluation_Course1` FOREIGN KEY (`Course_Code`) REFERENCES `course` (`Code`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `e_question_has_evaluation`
---
-ALTER TABLE `e_question_has_evaluation`
-  ADD CONSTRAINT `fk_E_Question_has_Evaluation_E_Question1` FOREIGN KEY (`E_Question_ID`) REFERENCES `e_question` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_E_Question_has_Evaluation_Evaluation1` FOREIGN KEY (`Evaluation_ID`) REFERENCES `evaluation` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `program`
@@ -437,13 +497,6 @@ ALTER TABLE `quiz`
 --
 ALTER TABLE `quiz_generator`
   ADD CONSTRAINT `fk_quiz_generator_Doctor1` FOREIGN KEY (`Doctor_ID`) REFERENCES `doctor` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `quiz_has_questions`
---
-ALTER TABLE `quiz_has_questions`
-  ADD CONSTRAINT `fk_quiz_has_questions_questions1` FOREIGN KEY (`questions_id`) REFERENCES `questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_quiz_has_questions_quiz1` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `registeration`

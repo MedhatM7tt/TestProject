@@ -3,7 +3,6 @@
 require('init.php');
 $Acc=$_POST["Acc"];
 $Pass=$_POST["Password"];
-
 $sql="SELECT Password FROM `student` WHERE (ID ='$Acc' or Email='$Acc');";
 $result=mysqli_query($conn,$sql);
 $response= array();
@@ -35,12 +34,19 @@ if(mysqli_num_rows($result)==1)
 	$ID=$row["ID"];
 	*/
 	$ID=mysqli_fetch_assoc($result)["ID"];
-	$sql2="SELECT Course_Code FROM `registeration` WHERE Student_ID='$ID'";
+	$sql2="SELECT Course_Code,IS_Evaluate1,IS_Evaluate2 FROM `registeration` WHERE Student_ID='$ID'";
 	$subjectQuery=mysqli_query($conn,$sql2);
 	if(mysqli_num_rows($subjectQuery)>0){
 		while($row=mysqli_fetch_assoc($subjectQuery)){
 			$courseCode=$row["Course_Code"];
-			array_push($response, array("subjectCode"=>$courseCode));
+			$isEval1=$row["IS_Evaluate1"];
+			$isEval2=$row["IS_Evaluate2"];
+			$sql3="SELECT is_active1 , is_active2 FROM `course` WHERE Code='$courseCode'";
+
+			$activeQuery=mysqli_query($conn,$sql3);
+			$activeRow=mysqli_fetch_assoc($activeQuery);
+
+			array_push($response, array("subjectCode"=>$courseCode ,"DoneEval1"=>$isEval1,"DoneEval2"=>$isEval2, "ActiveEval1"=>$activeRow["is_active1"],"ActiveEval2"=>$activeRow["is_active2"]));
 		}
 		echo json_encode($response);
 	}

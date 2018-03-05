@@ -1,6 +1,7 @@
 <?php
 require 'init.php';
 
+//$conn= mysqli_connect("localhost","root","","exam");
 $ID=$_POST["ID"];
 $Pass=$_POST["Password"];
 $Email=$_POST["Email"];
@@ -19,7 +20,7 @@ if(mysqli_num_rows($result)==1){
 		echo json_encode($response);
 	}
 	else{
-		$passwordHashed=password_hash($Pass,PASSWORD_DEFAULT);
+		$passwordHashed=password_hash('$Pass',PASSWORD_DEFAULT);
 		$sql3="UPDATE `student` SET `Password`='$passwordHashed' , `Email`='$Email' WHERE `ID`='$ID'";
 		if(mysqli_query($conn,$sql3)){
 			array_push($response, array('code'=>"Done",'message'=>"Thanks For complete your Data !"));
