@@ -31,11 +31,11 @@ public class SharedPrefManager {
         return mInstance;
     }
 
-    public boolean userLogin(String Acc, Set<String> subjectList,String pass){
+    public boolean userLogin(String Acc, ArrayList<String> subjectList,String pass){
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_ACC_KEY,Acc);
-        editor.putStringSet(USER_SUBJECTS,subjectList);
+        editor.putString(USER_SUBJECTS,subjectList.toString());
         editor.putString(USER_PASS,pass);
         editor.apply();
         return true;
@@ -62,8 +62,8 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         return sharedPreferences.getString(USER_PASS,null);
     }
-    public Set<String> getSubjectSet(){
+    public String getSubjectList(){
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
-        return sharedPreferences.getStringSet(USER_SUBJECTS,null);
+        return sharedPreferences.getString(USER_SUBJECTS,null);
     }
 }

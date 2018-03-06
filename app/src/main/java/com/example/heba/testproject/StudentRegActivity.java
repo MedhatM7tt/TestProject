@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StrudentRegActivity extends AppCompatActivity {
+public class StudentRegActivity extends AppCompatActivity {
 
     private String mPasswordConfirm, mPassword, mID, mEmail;
     private EditText mPasswordConfirmE, mPasswordE, mIDE, mEmailE;
@@ -148,7 +148,7 @@ public class StrudentRegActivity extends AppCompatActivity {
         });
         progressDialog  = new ProgressDialog(this);
 
-        builder = new AlertDialog.Builder(StrudentRegActivity.this);
+        builder = new AlertDialog.Builder(StudentRegActivity.this);
         //**************************************************//
 
         regBtn.setOnClickListener(new View.OnClickListener() {
@@ -193,7 +193,7 @@ public class StrudentRegActivity extends AppCompatActivity {
                         return params;
                     }
                 };
-                MySingleton.getmInstance(StrudentRegActivity.this).addToRequestQueue(stringRequest);
+                MySingleton.getmInstance(StudentRegActivity.this).addToRequestQueue(stringRequest);
             }
         });
     }

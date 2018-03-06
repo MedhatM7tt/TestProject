@@ -10,4 +10,6 @@ public class Constants {
     public static final String DOCTOR_REG_URL=SERVER_URL+"DoctorReg.php";
     public static final String STUDENT_LOGIN_URL=SERVER_URL+"StudentLogin.php";
     public static final String DOCTOR_LOGIN_URL=SERVER_URL+"DoctorLogin.php";
+    public static final String Eval_Quastions_URL=SERVER_URL+"EvalQuestions.php";
+
 }

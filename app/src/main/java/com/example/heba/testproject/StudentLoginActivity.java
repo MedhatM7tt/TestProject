@@ -3,7 +3,6 @@ package com.example.heba.testproject;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,11 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public class StudentLoginActivity extends AppCompatActivity {
     private String mStudentAcc,mStudentPass;
@@ -41,7 +37,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private CheckBox mShowPass;
     private AlertDialog.Builder builder;
-    private Set<String> set = new HashSet<String>();
+    ArrayList<String> subjectList=new ArrayList<>();
 
 
     @Override
@@ -147,16 +143,11 @@ public class StudentLoginActivity extends AppCompatActivity {
                             JSONObject jsonObject=jsonArray.getJSONObject(0);
                             for(int count=1;count<jsonArray.length();count++){
                                 JSONObject jsonObject2 = jsonArray.getJSONObject(count);
-                                Iterator<String> iterator = jsonObject2.keys();
-                                String currentKey=iterator.next();
-                                if(currentKey.equals("subjectCode"))
-                                {
-                                    set.add(jsonObject2.getString("subjectCode").toString());
-                                    set.add(jsonObject2.getString("DoneEval1").toString());
-                                    set.add(jsonObject2.getString("DoneEval2").toString());
-                                    set.add(jsonObject2.getString("ActiveEval1").toString());
-                                    set.add(jsonObject2.getString("ActiveEval2").toString());
-                                }
+                                subjectList.add(jsonObject2.getString("subjectCode").toString());
+                                subjectList.add(jsonObject2.getString("DoneEval1").toString());
+                                subjectList.add(jsonObject2.getString("DoneEval2").toString());
+                                subjectList.add(jsonObject2.getString("ActiveEval1").toString());
+                                subjectList.add(jsonObject2.getString("ActiveEval2").toString());
                             }
                             displayAlert(jsonObject.getString("code"),jsonObject.getString("message"));
                         } catch (JSONException e) {
@@ -192,7 +183,7 @@ public class StudentLoginActivity extends AppCompatActivity {
     public void displayAlert(String code , String message){
         progressDialog.dismiss();
         if(code.equals("Success")){
-            SharedPrefManager.getmInstance(this).userLogin(mStudentAcc,set,mStudentPass);
+            SharedPrefManager.getmInstance(this).userLogin(mStudentAcc,subjectList,mStudentPass);
             startActivity(new Intent(StudentLoginActivity.this,Subject_StudentActivity.class));
             finish();
         }
@@ -224,6 +215,6 @@ public class StudentLoginActivity extends AppCompatActivity {
     }
 
     public void reg(View view) {
-        startActivity(new Intent(this, StrudentRegActivity.class));
+        startActivity(new Intent(this, StudentRegActivity.class));
     }
 }
