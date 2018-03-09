@@ -81,7 +81,7 @@ public class Subject_StudentActivity extends AppCompatActivity {
         {
             case R.id.menuLogout:
                 SharedPrefManager.getmInstance(this).logout();
-                startActivity(new Intent(Subject_StudentActivity.this,StudentLoginActivity.class));
+                startActivity(new Intent(Subject_StudentActivity.this,ChooseActivity.class));
                 finish();
                 break;
             case R.id.menuSetting:
