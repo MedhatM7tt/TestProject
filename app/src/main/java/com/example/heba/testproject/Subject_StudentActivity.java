@@ -6,10 +6,15 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
@@ -85,9 +90,22 @@ public class Subject_StudentActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.menuSetting:
-                Toast.makeText(this,"You Clicked setting",Toast.LENGTH_LONG).show();
+                MyToast.viewToast("You Pressed Settings",this);
                 break;
         }
         return true;
     }
+
+
+    /*private void view_toast(String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast,(ViewGroup)findViewById(R.id.custom_toast_container));
+        TextView text = (TextView)layout.findViewById(R.id.text);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM,0,0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }*/
 }

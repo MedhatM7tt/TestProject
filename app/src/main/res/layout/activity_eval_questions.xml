@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:gravity="center"
+        android:layout_gravity="center"
         android:padding="16dp"
         android:text="السؤال يوضع هنا !"
         />

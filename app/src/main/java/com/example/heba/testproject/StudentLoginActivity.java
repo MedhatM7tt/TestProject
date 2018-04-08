@@ -180,10 +180,10 @@ public class StudentLoginActivity extends AppCompatActivity {
 
     }
 
-    public void displayAlert(String code , String message){
+    private void displayAlert(String code , String message){
         progressDialog.dismiss();
         if(code.equals("Success")){
-            SharedPrefManager.getmInstance(this).userLogin(mStudentAcc,subjectList,mStudentPass);
+            SharedPrefManager.getmInstance(this).userLogin(mStudentAcc,subjectList,mStudentPass,"Student");
             startActivity(new Intent(StudentLoginActivity.this,Subject_StudentActivity.class));
             finish();
         }

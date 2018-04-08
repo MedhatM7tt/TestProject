@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class DocLoginActivity extends AppCompatActivity {
     private Button mLoginBtn;
     private AlertDialog.Builder builder;
     private ProgressDialog progressDialog;
+    ArrayList<String> subjectList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +108,14 @@ public class DocLoginActivity extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDocAcc=mDocAccE.getText().toString();
-                mDocPass=mDocPassE.getText().toString();
+                if(!SharedPrefManager.getmInstance(DocLoginActivity.this).isLogged()){
+                    mDocAcc=mDocAccE.getText().toString();
+                    mDocPass=mDocPassE.getText().toString();
+                }
+                else{
+                    mDocAcc=SharedPrefManager.getmInstance(DocLoginActivity.this).getUserAcc().toString();
+                    mDocPass=SharedPrefManager.getmInstance(DocLoginActivity.this).getUserPass().toString();
+                }
                 progressDialog.setMessage("Signing in...");
                 progressDialog.show();
                 StringRequest stringRequest=new StringRequest(Request.Method.POST, Constants.DOCTOR_LOGIN_URL, new Response.Listener<String>() {
@@ -116,6 +124,13 @@ public class DocLoginActivity extends AppCompatActivity {
                         try {
                             JSONArray jsonArray=new JSONArray(response);
                             JSONObject jsonObject=jsonArray.getJSONObject(0);
+                            for(int count=1;count<jsonArray.length();count++){
+                                JSONObject jsonObject2 = jsonArray.getJSONObject(count);
+                                subjectList.add(jsonObject2.getString("subjectCode").toString());
+                                subjectList.add(jsonObject2.getString("ActiveEval1").toString());
+                                subjectList.add(jsonObject2.getString("ActiveEval2").toString());
+                            }
+
                             displayAlert(jsonObject.getString("code"),jsonObject.getString("message"));
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -139,11 +154,17 @@ public class DocLoginActivity extends AppCompatActivity {
                 MySingleton.getmInstance(DocLoginActivity.this).addToRequestQueue(stringRequest);
             }
         });
+
+        if(SharedPrefManager.getmInstance(this).isLogged()){
+            mLoginBtn.callOnClick();
+            return;
+        }
     }
 
     public void displayAlert(String code , String message){
         progressDialog.dismiss();
         if(code.equals("Success")){
+            SharedPrefManager.getmInstance(this).userLogin(mDocAcc,subjectList,mDocPass,"Doc");
             startActivity(new Intent(DocLoginActivity.this,Subject_DoctorActivity.class));
             finish();
         }
