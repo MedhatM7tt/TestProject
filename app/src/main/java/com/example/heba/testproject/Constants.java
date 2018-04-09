@@ -12,6 +12,8 @@ public class Constants {
     public static final String DOCTOR_LOGIN_URL=SERVER_URL+"DoctorLogin.php";
     public static final String Eval1_Questions_URL=SERVER_URL+"Eval1Questions.php";
     public static final String Eval2_Questions_URL=SERVER_URL+"Eval2Questions.php";
+    public static final String Active_Eval_URL=SERVER_URL+"ActiveEval.php";
+
 
 
 }
