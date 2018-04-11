@@ -34,7 +34,6 @@ import javax.security.auth.Subject;
 
 public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
 
-    //private Button active1,active2;
     private Context mCtx;
     private ProgressDialog progressDialog;
 
@@ -57,8 +56,6 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
 
         final SubjectData currentSubject = getItem(position);
         final TextView subjectView = (TextView) listItemView.findViewById(R.id.subjectCodeDoc);
-        //active1 = (Button)listItemView.findViewById(R.id.active1);
-        //active2 = (Button)listItemView.findViewById(R.id.active2);
         final Button lactive1,lactive2;
         lactive1=(Button)listItemView.findViewById(R.id.active1);
         lactive2=(Button)listItemView.findViewById(R.id.active2);
@@ -75,7 +72,6 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
         lactive1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //enableButton(currentSubject.getActiveEval1());
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.Active_Eval_URL,
                         new Response.Listener<String>() {
                             @Override
@@ -92,12 +88,12 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
                                         else if (lactive1.getText().equals("Active Eval 1")){
                                             lactive1.setText("DisActive Eval 1");
                                         }
-                                        progressDialog.dismiss();
 
                                     }
                                     else{
                                         MyToast.viewToast("There is an Error!",mCtx);
                                     }
+                                    progressDialog.dismiss();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -125,7 +121,6 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
         lactive2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //enableButton(currentSubject.getActiveEval2());
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.Active_Eval_URL,
                         new Response.Listener<String>() {
                             @Override
@@ -142,11 +137,11 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
                                         else if (lactive2.getText().equals("Active Eval 2")){
                                             lactive2.setText("DisActive Eval 2");
                                         }
-                                        progressDialog.dismiss();
                                     }
                                     else{
                                         MyToast.viewToast("There is an Error!",mCtx);
                                     }
+                                    progressDialog.dismiss();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -172,16 +167,7 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
         });
         return listItemView;
     }
-    private void enableButton(String mActive) {
-        if(mActive.equals("1")){
-            Toast.makeText(getContext(),"Is Already Active",Toast.LENGTH_LONG).show();
-        }
-        else{
-            Toast.makeText(getContext(),"Active", Toast.LENGTH_LONG).show();
 
-
-        }
-    }
 
     private void setButtonText(String mActive,Button mBtn,int n){
         if(n==1){

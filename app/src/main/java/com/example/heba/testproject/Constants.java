@@ -13,7 +13,8 @@ public class Constants {
     public static final String Eval1_Questions_URL=SERVER_URL+"Eval1Questions.php";
     public static final String Eval2_Questions_URL=SERVER_URL+"Eval2Questions.php";
     public static final String Active_Eval_URL=SERVER_URL+"ActiveEval.php";
-
+    public static final String IS_ACTIVE_EVAL1=SERVER_URL+"Eval1.php";
+    public static final String IS_ACTIVE_EVAL2=SERVER_URL+"Eval2.php";
 
 
 }
