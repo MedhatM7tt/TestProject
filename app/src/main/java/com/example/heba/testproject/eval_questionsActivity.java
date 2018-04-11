@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -18,14 +20,16 @@ public class eval_questionsActivity extends AppCompatActivity {
     private int position;
     private ArrayList<Integer> answers;
     private RadioButton[] r;
+    private RadioGroup radioGroup;
     String questions;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eval_questions);
         position=0;
         final ImageView nextBtn= (ImageView) findViewById(R.id.nextIcon);
+        radioGroup=(RadioGroup) findViewById(R.id.answerGroup);
         final ArrayList<String> questionsList;
         answers=new ArrayList<>();
         r= new RadioButton[6];
@@ -43,6 +47,8 @@ public class eval_questionsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 super.run();
+
+
                 if(questions.equals("")){
                     MyToast.viewToast("Error",eval_questionsActivity.this);
                 }
@@ -53,14 +59,14 @@ public class eval_questionsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             if(r[1].isChecked()||r[2].isChecked()||r[3].isChecked()||r[4].isChecked()||r[5].isChecked()){
-                                for(int i=1;i<6;i++){
-                                    if(r[i].isSelected()) {
-                                        answers.add(i);
+                                for(int i=1;i<=5;i++){
+                                    if(r[i].isChecked()) {
+                                        {
+                                            answers.add(i);
+                                            radioGroup.clearCheck();
+                                        }
                                         break;
                                     }
-                                }
-                                for(int i=1;i<6;i++){
-                                    r[i].setChecked(false);
                                 }
                                 if(position==questionsList.size()){
                                     SharedPrefManager.getmInstance(eval_questionsActivity.this).clearQuestions();
@@ -68,8 +74,9 @@ public class eval_questionsActivity extends AppCompatActivity {
                                     finish();
 
                                 }
-                                else
+                                else{
                                     textView.setText(questionsList.get(position++));
+                                }
                             }
                             else {
                                 MyToast.viewToast("Please Choose an Answer !",eval_questionsActivity.this);
@@ -80,7 +87,6 @@ public class eval_questionsActivity extends AppCompatActivity {
         };
 
         };
-
         thread.start();
 
     }

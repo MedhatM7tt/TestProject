@@ -32,6 +32,7 @@
     android:paddingBottom="16dp"
     >
     <RadioGroup
+        android:id="@+id/answerGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
   <RadioButton
@@ -40,7 +41,7 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="16dp"
       android:paddingLeft="10dp"
-      android:text="ممتاز"
+      android:text="موافق تمامًا"
       />
 
     <RadioButton
@@ -49,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:paddingLeft="10dp"
-        android:text="جيد جدا"
+        android:text="موافق"
         />
 
     <RadioButton
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:paddingLeft="10dp"
-        android:text="جيد"
+        android:text="إلى حد ما"
         />
 
     <RadioButton
@@ -67,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:paddingLeft="10dp"
-        android:text="ضعيف"
+        android:text="غير موافق"
         />
 
     <RadioButton
@@ -76,7 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:paddingLeft="10dp"
-        android:text="لا أعلم"
+        android:text="غير موافق تمامًا"
         />
     </RadioGroup>
     <ImageView

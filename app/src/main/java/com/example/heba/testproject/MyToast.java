@@ -20,7 +20,7 @@ public class MyToast{
         TextView text = layout.findViewById(R.id.text);
         text.setText(message);
         Toast toast = new Toast(context);
-        toast.setGravity(Gravity.BOTTOM,0,0);
+        toast.setGravity(Gravity.BOTTOM,0,130);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
         toast.show();
