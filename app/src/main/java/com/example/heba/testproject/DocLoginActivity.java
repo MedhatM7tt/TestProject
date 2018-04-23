@@ -165,7 +165,7 @@ public class DocLoginActivity extends AppCompatActivity {
         progressDialog.dismiss();
         if(code.equals("Success")){
             SharedPrefManager.getmInstance(this).userLogin(mDocAcc,subjectList,mDocPass,"Doc");
-            startActivity(new Intent(DocLoginActivity.this,Subject_DoctorActivity.class));
+            startActivity(new Intent(DocLoginActivity.this,DoctorActivity.class));
             finish();
         }
         else if(message.equals("Wrong Password!")){

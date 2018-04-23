@@ -104,7 +104,7 @@ public class SubjectsAdapter extends ArrayAdapter<SubjectData> {
                 try {
                     JSONArray jsonArray=new JSONArray(response);
                     JSONObject jsonObject=jsonArray.getJSONObject(0);
-                    displayAlert(jsonObject.getString("message"));
+                    displayAlertActive(jsonObject.getString("message"),subjectCode);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     MyToast.viewToast("Error !",mCtx);
@@ -131,14 +131,14 @@ public class SubjectsAdapter extends ArrayAdapter<SubjectData> {
     }
 
 
-    private void displayAlert(String message){
+    private void displayAlertActive(String message,String subjectCode){
         progressDialog.dismiss();
         if(message.equals("Actived")){
             questionArray =new ArrayList<>();
             if(flag==0)
-                makeQuestionsList(Constants.Eval1_Questions_URL);
+                makeQuestionsList(Constants.Eval1_Questions_URL,"before",subjectCode);
             else if(flag==1)
-                makeQuestionsList(Constants.Eval2_Questions_URL);
+                makeQuestionsList(Constants.Eval2_Questions_URL,"after",subjectCode);
         }
         else if(message.equals("Disactived")){
             MyToast.viewToast("The Evaluation isn't active!",mCtx);
@@ -148,7 +148,7 @@ public class SubjectsAdapter extends ArrayAdapter<SubjectData> {
         }
     }
 
-    private void makeQuestionsList(String URL){
+    private void makeQuestionsList(String URL,final String type, final String subjectCode){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -158,7 +158,7 @@ public class SubjectsAdapter extends ArrayAdapter<SubjectData> {
                         JSONObject jsonObject = jsonArray.getJSONObject(count);
                         questionArray.add(jsonObject.getString("Question").toString());
                     }
-                    displayAlert();
+                    displayAlert(type,subjectCode);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -173,14 +173,14 @@ public class SubjectsAdapter extends ArrayAdapter<SubjectData> {
         MySingleton.getmInstance(mCtx).addToRequestQueue(stringRequest);
     }
 
-    private void displayAlert(){
+    private void displayAlert(String type,String subjectCode){
         if(questionArray.size()==0){
             builder.setTitle("Fetching data Error !");
             builder.setMessage("Error !");
             builder.setPositiveButton("Ok",null);
         }
         else{
-            SharedPrefManager.getmInstance(mCtx).setQuestions(questionArray);
+            SharedPrefManager.getmInstance(mCtx).setQuestions(questionArray,type,subjectCode);
             mCtx.startActivity(new Intent(mCtx,eval_questionsActivity.class));
         }
     }

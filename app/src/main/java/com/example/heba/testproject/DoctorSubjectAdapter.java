@@ -72,12 +72,12 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
         lactive1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Please Wait...");
+                progressDialog.show();
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.Active_Eval_URL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                progressDialog.setMessage("Please Wait...");
-                                progressDialog.show();
                                 try {
                                     JSONArray jsonArray=new JSONArray(response);
                                     JSONObject jsonObject=jsonArray.getJSONObject(0);
@@ -101,6 +101,7 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
                         }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                progressDialog.dismiss();
                                 MyToast.viewToast("Error In Connection ! ",mCtx);
                             }
                 }){
@@ -121,12 +122,12 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
         lactive2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage("Please Wait...!");
+                progressDialog.show();
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.Active_Eval_URL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                progressDialog.setMessage("Please Wait...!");
-                                progressDialog.show();
                                 try {
                                  JSONArray   jsonArray = new JSONArray(response);
                                  JSONObject jsonObject=jsonArray.getJSONObject(0);
@@ -149,6 +150,7 @@ public class DoctorSubjectAdapter extends ArrayAdapter<SubjectData>{
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
                         MyToast.viewToast("Error In Connection",mCtx);
 
                     }
