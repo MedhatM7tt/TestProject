@@ -32,5 +32,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.android.volley:volley:1.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.itextpdf:itextg:5.5.10'
+    compile 'com.github.barteksc:android-pdf-viewer:2.0.3'
+
 
 }
