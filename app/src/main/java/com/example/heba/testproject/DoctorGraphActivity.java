@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -55,7 +56,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
     private String dirpath;
     private static final int REQUEST_STORAGE=225;
     private static final int TAT_STORAGE=2;
-    Button savePdf;
+    //ImageView savePdf;
 
     PermissionUri permissionUri;
 
@@ -72,7 +73,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
         barChart = (BarChart) findViewById(R.id.bargraph);
         ArrayList<BarEntry> barEntries= new ArrayList<>();
 
-        savePdf=(Button) findViewById(R.id.saveGraphBtn);
+//        savePdf=(ImageView) findViewById(R.id.saveGraphBtn);
 
         yList = makeList(SharedPrefManager.getmInstance(this).getyValues());
         xList = makeList(SharedPrefManager.getmInstance(this).getxValues());
@@ -94,6 +95,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         BarData barData = new BarData(barDataSet);
+        barData.setBarWidth(.9f);
 
         XAxis xAxis=barChart.getXAxis();
 
@@ -107,7 +109,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
         yAxis.setLabelCount(5);
         yAxis.setAxisMinimum(0);
         yAxis.setAxisMaximum(5);
-
+        barChart.getDescription().setEnabled(false);
         barChart.getAxisRight().setEnabled(false);
         barChart.setData(barData);
 
