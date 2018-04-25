@@ -19,6 +19,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -37,6 +39,8 @@ import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
@@ -95,7 +99,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
         BarData barData = new BarData(barDataSet);
-        barData.setBarWidth(.9f);
+        barData.setBarWidth(.5f);
 
         XAxis xAxis=barChart.getXAxis();
 
@@ -207,7 +211,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
 
     }
 
-    public void saveGraph(View v){
+    private void saveGraph(){
 
         if(checkPermission(TAT_STORAGE)!=PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)){
@@ -231,9 +235,8 @@ public class DoctorGraphActivity extends AppCompatActivity {
             ProgressDialog progressDialog=new ProgressDialog(this);
             progressDialog.setMessage("Please Wait..");
             progressDialog.show();
-            dirpath=android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+"/Dir";
+            dirpath=android.os.Environment.getExternalStorageDirectory().getAbsolutePath()+"/EvaluationsGraphs";
             barChart.setDrawingCacheEnabled(true);
-
             Bitmap bitmap=Bitmap.createBitmap(barChart.getDrawingCache());
 
             barChart.setDrawingCacheEnabled(false);
@@ -248,16 +251,20 @@ public class DoctorGraphActivity extends AppCompatActivity {
                 File file = new File(dir, courseCode + ".pdf");
 
                 FileOutputStream fout = new FileOutputStream(file);
+
                 Log.v("FOUT",file.getPath());
-                PdfWriter.getInstance(document, fout);
-                document.open();
 
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
                 Image myImg = Image.getInstance(stream.toByteArray());
-                myImg.scalePercent(75,100);
+
+                PdfWriter.getInstance(document, fout);
+                document.open();
+
+                document.setPageSize(new com.itextpdf.text.Rectangle(myImg.getScaledWidth()+100, myImg.getScaledHeight()+100));
+                document.newPage();
 
                 document.add(myImg);
                 MyToast.viewToast("Saved !",this);
@@ -272,7 +279,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             document.close();
-            viewPdf(courseCode+".pdf","Dir");
+            viewPdf(courseCode+".pdf","EvaluationsGraphs");
             progressDialog.dismiss();
         }
     }
@@ -417,5 +424,22 @@ public class DoctorGraphActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_save,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.save_icon:
+                saveGraph();
+                break;
+        }
+        return true;
     }
 }

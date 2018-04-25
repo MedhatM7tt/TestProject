@@ -12,14 +12,5 @@
         android:layout_height="400dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"></com.github.mikephil.charting.charts.BarChart>
-    <ImageView
-        android:id="@+id/saveGraphBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bargraph"
-        android:onClick="saveGraph"
-        android:src="@drawable/ic_save_black_48dp"
-        android:layout_centerInParent="true"
-        android:layout_marginRight="30dp"
-        />
+
 </RelativeLayout>
