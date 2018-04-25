@@ -82,7 +82,7 @@ public class DoctorActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.menuSetting:
-                MyToast.viewToast("You Pressed Settings",this);
+                startActivity(new Intent(DoctorActivity.this,SettingsActivity.class));
                 break;
         }
         return true;

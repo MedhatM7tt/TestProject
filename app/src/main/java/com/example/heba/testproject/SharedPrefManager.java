@@ -49,6 +49,15 @@ public class SharedPrefManager {
         return true;
     }
 
+    public boolean changePass(String pass){
+        SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(USER_PASS);
+        editor.apply();
+        editor.putString(USER_PASS,pass);
+        editor.apply();
+        return true;
+    }
     public boolean setQuestions(ArrayList<String> questionList,String type,String courseCode){
         SharedPreferences sharedPreferences=mCtx.getSharedPreferences(SHARED_PREF_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

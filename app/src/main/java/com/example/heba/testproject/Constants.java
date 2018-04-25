@@ -18,6 +18,7 @@ public class Constants {
     public static final String IS_ACTIVE_EVAL2=SERVER_URL+"Eval2.php";
     public static final String SUBMIT_EVAL=SERVER_URL+"submit_degree.php";
     public static final String GET_GRAPH=SERVER_URL+"DrGraph.php";
+    public static final String CHANGE_PASS=SERVER_URL+"ChangePassword.php";
 
 
 }

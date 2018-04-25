@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboard|orientation|screenSize"
@@ -24,44 +26,83 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".ChooseActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="Choosing" />
+
+
         <activity
             android:name=".StudentLoginActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="Student"
             android:parentActivityName=".ChooseActivity" />
+
+
         <activity
             android:name=".DocLoginActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="Doctor"
             android:parentActivityName=".ChooseActivity" />
+
+
         <activity
             android:name=".StudentRegActivity"
             android:configChanges="keyboard|orientation|screenSize"
-            android:label="Reg"
+            android:label="Registration"
             android:parentActivityName=".StudentLoginActivity" />
+
+
         <activity
             android:name=".DocRegActivity"
             android:configChanges="keyboard|orientation|screenSize"
+            android:label="Registration"
             android:parentActivityName=".DocLoginActivity" />
+
+
         <activity
             android:name=".Subject_StudentActivity"
             android:configChanges="keyboard|orientation|screenSize"
             android:label="Subjects" />
+
+
         <activity
             android:name=".eval_questionsActivity"
             android:configChanges="keyboard|orientation|screenSize"
+            android:label="Evaluation"
             android:parentActivityName=".Subject_StudentActivity" />
-        <activity android:name=".DoctorGraphActivity"
-            android:configChanges="keyboard|orientation|screenSize"/>
+
         <activity
-            android:configChanges="keyboard|orientation|screenSize"
             android:name=".DoctorActivity"
-            android:label="@string/title_activity_doctor"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:configChanges="keyboard|orientation|screenSize"
+            android:label="Subjects"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".DoctorGraphActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:parentActivityName=".DoctorActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DoctorActivity" />
+        </activity>
+
+
+
+
+        <activity android:name=".SettingsActivity"
+            android:label="Settings"
+            android:configChanges="keyboard|orientation|screenSize" />
+
+
+        <activity android:name=".ChangePassActivity"
+            android:label="Change Password"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:parentActivityName=".SettingsActivity" ></activity>
+
+
     </application>
 
 </manifest>

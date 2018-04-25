@@ -90,7 +90,7 @@ public class Subject_StudentActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.menuSetting:
-                MyToast.viewToast("You Pressed Settings",this);
+                startActivity(new Intent(Subject_StudentActivity.this,SettingsActivity.class));
                 break;
         }
         return true;

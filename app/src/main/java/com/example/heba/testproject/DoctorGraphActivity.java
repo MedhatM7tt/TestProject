@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -69,7 +70,10 @@ public class DoctorGraphActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        courseCode=SharedPrefManager.getmInstance(this).getCourseCode();
+        setTitle(courseCode+" Graph");
         setContentView(R.layout.activity_doctor_graph);
+
         permissionUri = new PermissionUri(this);
 
         final ArrayList<String> yList,xList;
@@ -92,7 +96,6 @@ public class DoctorGraphActivity extends AppCompatActivity {
             barEntries.add(new BarEntry(i,yvalues[i]));
         }
 
-        courseCode=SharedPrefManager.getmInstance(this).getCourseCode();
         evalType =SharedPrefManager.getmInstance(this).getEvalType();
         BarDataSet barDataSet = new BarDataSet(barEntries,courseCode+" "+ evalType +" Exam Evaluation Graph");
 
@@ -434,11 +437,15 @@ public class DoctorGraphActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId())
         {
             case R.id.save_icon:
                 saveGraph();
                 break;
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
         }
         return true;
     }
