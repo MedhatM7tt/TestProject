@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestProject</string>
+    <string name="app_name">Evaluations</string>
     <string name="title_activity_choose">ChooseActivity</string>
     <string name="title_activity_doctor">DoctorActivity</string>
     <string name="tab_text_1">Tab 1</string>

@@ -22,6 +22,16 @@ public class ChooseActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(SharedPrefManager.getmInstance(this).isLogged()){
+            finish();
+            return;
+        }
+    }
+
+
     public void doctorClick(View view) {
         Intent i = new Intent(this, DocLoginActivity.class);
         startActivity(i);

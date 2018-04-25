@@ -78,7 +78,7 @@ public class DoctorActivity extends AppCompatActivity {
         {
             case R.id.menuLogout:
                 SharedPrefManager.getmInstance(this).logout();
-                startActivity(new Intent(DoctorActivity.this,ChooseActivity.class));
+                startActivity(new Intent(DoctorActivity.this,MainActivity.class));
                 finish();
                 break;
             case R.id.menuSetting:
