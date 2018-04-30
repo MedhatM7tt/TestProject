@@ -42,6 +42,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfDiv;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
@@ -57,6 +58,7 @@ import static java.security.AccessController.getContext;
 
 public class DoctorGraphActivity extends AppCompatActivity {
     BarChart barChart;
+
     String courseCode, evalType;
     private String dirpath;
     private static final int REQUEST_STORAGE=225;
@@ -111,15 +113,19 @@ public class DoctorGraphActivity extends AppCompatActivity {
         xAxis.setAxisMinimum(-.5f);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularityEnabled(true);
+        xAxis.setLabelCount(xList.size());
+        xAxis.setTextSize(7f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         YAxis yAxis=barChart.getAxisLeft();
         yAxis.setLabelCount(5);
         yAxis.setAxisMinimum(0);
         yAxis.setAxisMaximum(5);
+
         barChart.getDescription().setEnabled(false);
         barChart.getAxisRight().setEnabled(false);
         barChart.setData(barData);
-
+        barDataSet.setValueTextSize(7);
 
 
     //    barChart.buildDrawingCache();
