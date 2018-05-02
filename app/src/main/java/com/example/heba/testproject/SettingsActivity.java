@@ -19,5 +19,12 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(new Intent(SettingsActivity.this,ChangePassActivity.class));
             }
         });
+        mAbout = (TextView) findViewById(R.id.About);
+        mAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingsActivity.this,AboutActivity.class));
+            }
+        });
     }
 }
