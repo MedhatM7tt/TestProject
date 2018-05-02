@@ -203,7 +203,6 @@ public class DocLoginActivity extends AppCompatActivity {
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    mDocAccE.setText("");
                     mDocPassE.setText("");
                 }
             });

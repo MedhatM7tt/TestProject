@@ -25,25 +25,7 @@ public class MainActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.LoadingText);
         mProgressBar.getProgressDrawable().setColorFilter(
                 Color.rgb(56, 142, 60), android.graphics.PorterDuff.Mode.SRC_IN);
-        /*new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(mProgressStatus<100){
-                    mProgressStatus++;
-                    android.os.SystemClock.sleep(50);
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgressBar.setProgress(mProgressStatus);
-                        }
-                    });
-                    Intent intent=new Intent(MainActivity.this,ChooseActivity.class);
-                    startActivity(intent);
-                }
-            }
-        }).start();*/
-        /*myintent = new Intent(this, ChooseActivity.class);
-        splashScreen(1000);*/
+
         Thread welcomeThread = new Thread() {
 
             @Override
@@ -80,56 +62,4 @@ public class MainActivity extends AppCompatActivity {
         welcomeThread.start();
     }
 
-    /*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
-
-        Thread welcomeThread = new Thread() {
-
-            @Override
-            public void run() {
-                try {
-                    super.run();
-                    sleep(10000);  //Delay of 10 seconds
-                } catch (Exception e) {
-
-                } finally {
-
-                    Intent i = new Intent(SplashActivity.this,
-                            MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            }
-        };
-        welcomeThread.start();
-    }
-
-
-
-     */
-    public void splashScreen(final int x) {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    while (mProgressStatus < 100) {
-                        mProgressStatus++;
-                        Thread.sleep(x);
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mProgressBar.setProgress(mProgressStatus);
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                startActivity(myintent);
-                finish();
-            }
-        }).run();
-    }
 }

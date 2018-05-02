@@ -25,7 +25,6 @@ import java.util.Set;
 import static java.lang.Thread.sleep;
 
 public class Subject_StudentActivity extends AppCompatActivity {
-    private String Acc;
     private ProgressDialog progressDialog;
 
     @Override
@@ -41,7 +40,6 @@ public class Subject_StudentActivity extends AppCompatActivity {
         progressDialog.setMessage("Please Wait until fetching your data...");
         progressDialog.show();
 
-        Acc = SharedPrefManager.getmInstance(this).getUserAcc();
 
         String subjectList = SharedPrefManager.getmInstance(this).getSubjectList();
 
@@ -96,16 +94,4 @@ public class Subject_StudentActivity extends AppCompatActivity {
         return true;
     }
 
-
-    /*private void view_toast(String message) {
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast,(ViewGroup)findViewById(R.id.custom_toast_container));
-        TextView text = (TextView)layout.findViewById(R.id.text);
-        text.setText(message);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.BOTTOM,0,0);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(layout);
-        toast.show();
-    }*/
 }

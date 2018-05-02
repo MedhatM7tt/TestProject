@@ -205,7 +205,6 @@ public class StudentLoginActivity extends AppCompatActivity {
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    mStudentAccE.setText("");
                     mStudentPassE.setText("");
                 }
             });

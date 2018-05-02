@@ -7,14 +7,60 @@
     android:padding="16dp"
     android:orientation="vertical"
     tools:context="com.example.heba.testproject.AboutActivity">
-<TextView
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="@string/app_name"
+        />
+    <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="V-02052018.1"
     android:textSize="16sp"
+        android:layout_marginTop="5dp"
     android:gravity="center"/>
-
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:text="This is beta-App of an E-Evaluations\n\nThis program is produced to you by a Silent\n\nTeam which consists of:"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:text="1- Omnia Fouad"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:text="2- Heba Emad"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:text="3- Asmaa Dawoud"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:text="4- Medhat Mohamed"
+        />
 </LinearLayout>

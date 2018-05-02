@@ -6,27 +6,23 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -108,6 +104,7 @@ public class SubjectsAdapter extends ArrayAdapter<SubjectData> {
                 } catch (JSONException e) {
                     e.printStackTrace();
                     MyToast.viewToast("Error !",mCtx);
+                    progressDialog.dismiss();
                 }
 
             }
@@ -115,6 +112,7 @@ public class SubjectsAdapter extends ArrayAdapter<SubjectData> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 MyToast.viewToast("Error in connection !",mCtx);
+                progressDialog.dismiss();
 
             }
         }){

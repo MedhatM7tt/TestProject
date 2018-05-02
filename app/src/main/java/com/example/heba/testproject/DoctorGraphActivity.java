@@ -73,7 +73,8 @@ public class DoctorGraphActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         courseCode=SharedPrefManager.getmInstance(this).getCourseCode();
-        setTitle(courseCode+" Graph");
+        evalType =SharedPrefManager.getmInstance(this).getEvalType();
+        setTitle(courseCode+" "+evalType+" Graph");
         setContentView(R.layout.activity_doctor_graph);
 
         permissionUri = new PermissionUri(this);
@@ -83,7 +84,6 @@ public class DoctorGraphActivity extends AppCompatActivity {
         barChart = (BarChart) findViewById(R.id.bargraph);
         ArrayList<BarEntry> barEntries= new ArrayList<>();
 
-//        savePdf=(ImageView) findViewById(R.id.saveGraphBtn);
 
         yList = makeList(SharedPrefManager.getmInstance(this).getyValues());
         xList = makeList(SharedPrefManager.getmInstance(this).getxValues());
@@ -98,7 +98,6 @@ public class DoctorGraphActivity extends AppCompatActivity {
             barEntries.add(new BarEntry(i,yvalues[i]));
         }
 
-        evalType =SharedPrefManager.getmInstance(this).getEvalType();
         BarDataSet barDataSet = new BarDataSet(barEntries,courseCode+" "+ evalType +" Exam Evaluation Graph");
 
         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -126,97 +125,6 @@ public class DoctorGraphActivity extends AppCompatActivity {
         barChart.getAxisRight().setEnabled(false);
         barChart.setData(barData);
         barDataSet.setValueTextSize(7);
-
-
-    //    barChart.buildDrawingCache();
-
-
-        // this is the important code :)
-        // Without it the view will have a dimension of 0,0 and the bitmap will
-//        // be null
-//        barChart.setDrawingCacheEnabled(true);
-//
-//        barChart.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-//                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-//        barChart.layout(0, 0, barChart.getMeasuredWidth(), barChart.getMeasuredHeight());
-//        Bitmap bitmap=Bitmap.createBitmap(barChart.getDrawingCache());
-//        barChart.setDrawingCacheEnabled(false);
-//        Log.v("BitMap",bitmap.toString());
-        //isStoragePermissionGranted();
-
-        /*dirpath=android.os.Environment.getExternalStorageDirectory().toString();
-        Document document=new Document();
-
-        try {
-            //String dirpath=android.os.Environment.getExternalStorageDirectory().toString();
-            File file=new File(dirpath,courseCode+".pdf");
-            FileOutputStream fout=new FileOutputStream(file);
-            PdfWriter.getInstance(document,fout);
-            document.open();
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , stream);
-            Image myImg = Image.getInstance(stream.toByteArray());
-            myImg.setAlignment(Image.MIDDLE);
-            document.add(myImg);
-            Log.v("Document1",document.toString());
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        document.close();*/
-
-
-        /*String dirpath=android.os.Environment.getExternalStorageDirectory().toString();
-        try {
-            PdfWriter.getInstance(document,new FileOutputStream(dirpath+"/"+courseCode+".pdf")); //  Change pdf's name.
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        document.open();
-        Image img = null;  // Change image's name and extension.
-        try {
-//            img = Image.getInstance(dirpath+"/"+"example.jpg");
-            img =Image.getInstance(bitmap.getNinePatchChunk());
-        } catch (BadElementException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
-                - document.rightMargin() - 0) / img.getWidth()) * 100; // 0 means you have no indentation. If you have any, change it.
-        img.scalePercent(scaler);
-        img.setAlignment(Image.ALIGN_CENTER | Image.ALIGN_TOP);
-
-        /*
-
-        try {
-            Image image=Image.getInstance(bitmap.getNinePatchChunk());
-        } catch (BadElementException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-         */
-        //img.setAlignment(Image.LEFT| Image.TEXTWRAP);
-
- /* float width = document.getPageSize().width() - document.leftMargin() - document.rightMargin();
- float height = document.getPageSize().height() - document.topMargin() - document.bottomMargin();
- img.scaleToFit(width, height)*/
-        /*try {
-            document.add(img);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-        document.close();*/
-
 
     }
 
@@ -252,12 +160,13 @@ public class DoctorGraphActivity extends AppCompatActivity {
             Log.v("BitMap",bitmap.toString());
 
             Document document = new Document();
+            String fileName=courseCode+"_"+evalType;
 
             try {
                 File dir = new File(dirpath);
                 if(!dir.exists())
                     dir.mkdirs();
-                File file = new File(dir, courseCode + ".pdf");
+                File file = new File(dir, fileName + ".pdf");
 
                 FileOutputStream fout = new FileOutputStream(file);
 
@@ -288,7 +197,7 @@ public class DoctorGraphActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             document.close();
-            viewPdf(courseCode+".pdf","EvaluationsGraphs");
+            viewPdf(fileName+".pdf","EvaluationsGraphs");
             progressDialog.dismiss();
         }
     }
@@ -335,63 +244,6 @@ public class DoctorGraphActivity extends AppCompatActivity {
             return "";
         }
     }
-/*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]== PackageManager.PERMISSION_GRANTED) {
-            Log.v("Permission", "Permission: " + permissions[0] + "was " + grantResults[0]);
-            //resume tasks needing this permission
-
-            barChart.buildDrawingCache();
-            barChart.setDrawingCacheEnabled(true);
-            Bitmap bitmap = barChart.getDrawingCache();
-            dirpath=android.os.Environment.getExternalStorageDirectory().toString();
-
-            Document document = new Document();
-
-            try {
-                File file = new File(dirpath, courseCode + ".pdf");
-                FileOutputStream fout = new FileOutputStream(file);
-                PdfWriter.getInstance(document, fout);
-                document.open();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                Image myImg = Image.getInstance(stream.toByteArray());
-                myImg.setAlignment(Image.MIDDLE);
-                document.add(myImg);
-            } catch (DocumentException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            document.close();
-        }
-    }
-*/
-    public  boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.v("TRUE","Permission is granted");
-                return true;
-            } else {
-
-                Log.v("FALSE","Permission is revoked");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.v("GRANTED","Permission is granted");
-            return true;
-        }
-    }
-
 
     private int checkPermission(int permission){
         int status=PackageManager.PERMISSION_DENIED;
@@ -437,7 +289,6 @@ public class DoctorGraphActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_save,menu);
         return true;
     }
