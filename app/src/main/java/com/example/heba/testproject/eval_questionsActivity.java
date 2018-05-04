@@ -86,16 +86,6 @@ public class eval_questionsActivity extends AppCompatActivity {
                                     }
                                 }
                                 textView.setText(questionsList.get(position++));
-
-                                /*if(position==questionsList.size()){
-                                    SharedPrefManager.getmInstance(eval_questionsActivity.this).clearQuestions();
-                                    MyToast.viewToast("Thanks for your time",eval_questionsActivity.this);
-                                    finish();
-
-                                }
-                                else{
-                                    textView.setText(questionsList.get(position++));
-                                }*/
                             }
                             else {
                                 MyToast.viewToast("Please Choose an Answer !",eval_questionsActivity.this);
@@ -134,7 +124,8 @@ public class eval_questionsActivity extends AppCompatActivity {
                                             } catch (JSONException e) {
                                                 Log.v("ErrorJson",e.toString());
                                                 progressDialog.dismiss();
-                                                answers.remove(answers.size()-1);
+                                                if(answers.size()==questionsList.size())
+                                                    answers.remove(answers.size()-1);
                                                 MyToast.viewToast("Error !",eval_questionsActivity.this);
                                             }
                                             displayAlert(response);
@@ -143,6 +134,9 @@ public class eval_questionsActivity extends AppCompatActivity {
                                     }, new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
+                                            progressDialog.dismiss();
+                                            if(answers.size()==questionsList.size())
+                                                answers.remove(answers.size()-1);
                                             MyToast.viewToast("Error in Connection !",eval_questionsActivity.this);
                                         }
                                     }){
